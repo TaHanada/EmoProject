@@ -1,4 +1,4 @@
-#include"MOEAD_IEpsilon.h"
+#include"CTAEA.h"
 #include"weight_vec.h"
 #include<vector>
 #include<iostream>
@@ -67,7 +67,7 @@ void CM2B_MOEAD::range_setting(int ProblemID) {
 }*/
 
 
-void MOEAD_IEpsilon::Parameter_setting(string algorithm, int ProblemID,int ProblemSubID) {
+void CTAEA::Parameter_setting(string algorithm, int ProblemID,int ProblemSubID) {
 	//Problem specific parameters
 	problems.set_ProblemID(ProblemID,ProblemSubID);
 	problems.parameter_setting(num_obj, num_const, dim, range);
@@ -76,18 +76,13 @@ void MOEAD_IEpsilon::Parameter_setting(string algorithm, int ProblemID,int Probl
 	//num_vec
 	switch (num_obj) {
 	case 2:
-		num_vec = 300;
+		num_vec = 100;
 		H1 = num_vec - 1, H2 = 0;//分割数 12(M=3) 6(M=5) 3,2(M=8) 3,2(M=10)
 		break;
 
 	case 3:
-		num_vec = 55;
-		H1 = 9, H2 = 0;//分割数 12(M=3) 6(M=5) 3,2(M=8) 3,2(M=10)
-		break;
-
-	case 4:
-		num_vec = 220;
-		H1 = 9, H2 = 0;//分割数 12(M=3) 6(M=5) 3,2(M=8) 3,2(M=10)
+		num_vec = 105;
+		H1 = 13, H2 = 0;//分割数 12(M=3) 6(M=5) 3,2(M=8) 3,2(M=10)
 		break;
 
 	default:
@@ -97,27 +92,19 @@ void MOEAD_IEpsilon::Parameter_setting(string algorithm, int ProblemID,int Probl
 
 	//others
 	pop_m = num_vec;
-	gen = 100;
+	gen = 1000;
 	crossover_probability = 1.0;
 	mutation_probability = 1.0 / (double)dim;
-	weight.resize(num_vec, num_obj, H1, H2, num_vec/10, num_vec/10);//コンストラクタの代わり
+	weight.resize(num_vec, num_obj, H1, H2, 10, 10);//コンストラクタの代わり
 	weight.initialize();//重みベクトルの生成と距離の計算
+	weight.cout_weight();
+	cin >> scalar;
 	scalar= "tch";
-//	problems.LIR_CMOPprob.constrained_landscape();
-	//Algorithm specific parrmeter
-	Tc_ = 0.8*gen;
-	cp_ = 2;
-	theta_ = 0.05;
-	alpha_ = 0.95;
-	tau_ = 0.1;
-	epsilon_ = 0;
-	epsilon0_ = 0;
-	epsilonMax_ = 0;
 }
 
 
 //consol output population
-void MOEAD_IEpsilon::cout_population(int swit) {
+void CTAEA::cout_population(int swit) {
 	switch (swit) {
 	case 1:
 		curent.cout_population();
@@ -134,7 +121,7 @@ void MOEAD_IEpsilon::cout_population(int swit) {
 
 
 //consol output property
-void MOEAD_IEpsilon::cout_property(int swit) {
+void CTAEA::cout_property(int swit) {
 	switch (swit) {
 	case 1:
 		curent.cout_property();
@@ -151,7 +138,7 @@ void MOEAD_IEpsilon::cout_property(int swit) {
 
 
 //weighted sum
-double MOEAD_IEpsilon::weighted_sum(individual ind) {
+double CTAEA::weighted_sum(individual ind) {
 	double value = 0;
 
 	for (int i = 0; i < num_obj; ++i) {
@@ -163,7 +150,7 @@ double MOEAD_IEpsilon::weighted_sum(individual ind) {
 
 
 //Tchebycheff no absolute
-double MOEAD_IEpsilon::tchebycheff_notabsolute(individual ind) {
+double CTAEA::tchebycheff_notabsolute(individual ind) {
 	double max = 0;
 	double g = 0;
 
@@ -179,28 +166,16 @@ double MOEAD_IEpsilon::tchebycheff_notabsolute(individual ind) {
 
 
 //Tchebycheff
-double MOEAD_IEpsilon::tchebycheff(individual ind) {
+double CTAEA::tchebycheff(individual ind) {
 	double max = 0;
 	double g = 0;
-		for (int i = 0; i < num_obj; ++i) {
-			if (weight.vec[ind.weight_no][i] == 0) {
-				g = pow(10, -6) * abs((0.0 - (ind.cost[i] - reference_point[i]) / (nadir_point[i] - reference_point[i])));//normalization
-			}
-			else {
-				g = weight.vec[ind.weight_no][i] * abs((0.0 - (ind.cost[i] - reference_point[i]) / (nadir_point[i] - reference_point[i])));//normalization
-			}
-
-			if (max < g) {
-				max = g;
-			}
-		}
 
 /*	for (int i = 0; i < num_obj; ++i) {
 		if (weight.vec[ind.weight_no][i] == 0) {
-			g = pow(10, -6) * abs(reference_point[i] - ind.cost[i]);
+			g = pow(10, -6) * abs((0.0 - (ind.cost[i] - reference_point[i]) / (nadir_point[i] - reference_point[i])));//normalization
 		}
 		else {
-			g = weight.vec[ind.weight_no][i] * abs(reference_point[i] - ind.cost[i]);
+			g = weight.vec[ind.weight_no][i] * abs((0.0 - (ind.cost[i] - reference_point[i]) / (nadir_point[i] - reference_point[i])));//normalization
 		}
 
 		if (max < g) {
@@ -208,12 +183,24 @@ double MOEAD_IEpsilon::tchebycheff(individual ind) {
 		}
 	}*/
 
+	for (int i = 0; i < num_obj; ++i) {
+		if (weight.vec[ind.weight_no][i] == 0) {
+			g = pow(10, -6) * abs(reference_point[i] - ind.cost[i]);//normalization
+		}
+		else {
+			g = weight.vec[ind.weight_no][i] * abs(reference_point[i] - ind.cost[i]);//normalization
+		}
+
+		if (max < g) {
+			max = g;
+		}
+	}
 	return max;
 }
 
 
 //PBI
-double MOEAD_IEpsilon::PBI(individual ind) {
+double CTAEA::PBI(individual ind) {
 	double theta = 5.0;//パラメータ
 	double value = 0;
 	double dt = 0;
@@ -246,7 +233,7 @@ double MOEAD_IEpsilon::PBI(individual ind) {
 
 
 //IPBI
-double MOEAD_IEpsilon::IPBI(individual ind) {
+double CTAEA::IPBI(individual ind) {
 	double theta = 0.1;//パラメータ
 	double value = 0;
 	double dt = 0;
@@ -279,7 +266,7 @@ double MOEAD_IEpsilon::IPBI(individual ind) {
 
 
 //AOF
-double MOEAD_IEpsilon::AOF(individual ind) {
+double CTAEA::AOF(individual ind) {
 	int k = ind.weight_no;
 
 	double p = -1.0*ind.cost[1] + k/4;
@@ -320,7 +307,7 @@ double MOEAD_IEpsilon::AOF(individual ind) {
 
 
 //scalarizing function
-double MOEAD_IEpsilon::scalarizing_function(individual ind) {
+double CTAEA::scalarizing_function(individual ind) {
 	if (scalar == "WS") {
 		return weighted_sum(ind);
 	}
@@ -344,7 +331,7 @@ double MOEAD_IEpsilon::scalarizing_function(individual ind) {
 
 
 //calcurate total constraints
-void MOEAD_IEpsilon::total_constraints(individual& ind) {
+void CTAEA::total_constraints(individual& ind) {
 	ind.total_c = 0;
 
 	for (int i = 0; i < num_const; ++i) {
@@ -356,7 +343,7 @@ void MOEAD_IEpsilon::total_constraints(individual& ind) {
 
 
 //initialize reference point and nadir point
-void MOEAD_IEpsilon::initialize_reference_nadir_point() {
+void CTAEA::initialize_reference_nadir_point() {
 	reference_point.resize(num_obj);
 	nadir_point.resize(num_obj);
 	for (int j = 0; j < num_obj; ++j) {
@@ -394,7 +381,7 @@ void MOEAD_IEpsilon::initialize_reference_nadir_point() {
 
 
 //initialize population
-void MOEAD_IEpsilon::initialize_population() {
+void CTAEA::initialize_population() {
 
 	for (int i = 0; i < num_vec; ++i) {
 		for (int j = 0; j < dim; ++j) {
@@ -407,8 +394,6 @@ void MOEAD_IEpsilon::initialize_population() {
 		curent.ind[i].fitness = scalarizing_function(curent.ind[i]);//cal scalarizing function value
 		total_constraints(curent.ind[i]);//cal total constraints value
 
-		//update epsilonmax_
-		epsilonMax_ = max(epsilonMax_, curent.ind[i].total_c);
 
 		//update reference point and nadir point
 		for (int j = 0; j < num_obj; ++j) {
@@ -427,33 +412,27 @@ void MOEAD_IEpsilon::initialize_population() {
 
 
 //curent solution's objective values
-void MOEAD_IEpsilon::file_objectives(int k, int island) {
+void CTAEA::file_objectives(int k, int island) {
 	string name = "data_" + to_string(k) + ".dat";
 	ofstream fout("./" + to_string(ProblemSubID) + "/" + scalar + "/island" + to_string(island + 1) + "/" + name);
 
 	if (island == 0) {
-		for (int i = 0; i < pop_m; ++i) {
+		for (int i = 0; i < num_vec; ++i) {
 			if (curent.ind[i].total_c == 0) {
-				for (int k = 0; k < num_obj; ++k) {
+				for (int k = 0; k < num_obj - 1; ++k) {
 					fout << setprecision(7) << max(curent.ind[i].cost[k], -1 * curent.ind[i].cost[k]) << "\t";
 				}
-				for (int k = 0; k < dim - 1; ++k) {
-					fout << curent.ind[i].var[k] << "\t";
-				}
-				fout << setprecision(7) << curent.ind[i].var[dim - 1] << endl;
+				fout << setprecision(7) << max(curent.ind[i].cost[num_obj - 1], -1 * curent.ind[i].cost[num_obj - 1]) << endl;
 			}
 		}
 	}
 	else if (island > 0) {
-		for (int i = 0; i < pop_m; ++i) {
+		for (int i = 0; i < num_vec; ++i) {
 			if (curent.ind[i].total_c != 0) {
-				for (int k = 0; k < num_obj; ++k) {
+				for (int k = 0; k < num_obj - 1; ++k) {
 					fout << setprecision(7) << max(curent.ind[i].cost[k], -1 * curent.ind[i].cost[k]) << "\t";
 				}
-				for (int k = 0; k < dim - 1; ++k) {
-					fout << curent.ind[i].var[k] << "\t";
-				}
-				fout << setprecision(7) << curent.ind[i].var[dim - 1] << endl;
+				fout << setprecision(7) << max(curent.ind[i].cost[num_obj - 1], -1 * curent.ind[i].cost[num_obj - 1]) << endl;
 			}
 		}
 	}
@@ -461,10 +440,10 @@ void MOEAD_IEpsilon::file_objectives(int k, int island) {
 
 
 //evolution (mu, 1) 
-void MOEAD_IEpsilon::evolution_one(int gen) {
+void CTAEA::evolution_one(int gen) {
 	int n1 = 0, n2 = 0;//parent ID
-	int i1=0, i2=0;//parent ID
-
+	int i1, i2;//parent ID
+		int count = 0;
 	//generate permutation of weight vector
 	vector<int> permutation;
 	for (int i = 0; i < num_vec; ++i) {
@@ -475,8 +454,7 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 	for (int ii = 0; ii < num_vec; ++ii) {
 		int i = permutation[ii];
 		//check the number of solutions that have better scalarizing function value than minID
-		i1 = 0, i2 = 0;
-		if (nextDouble() < 0.9) {
+		if (nextDouble() < 1.0) {
 			i1 = weight.neighbor[i][genrand_int32() % weight.select_size].no;
 			i2 = weight.neighbor[i][genrand_int32() % weight.select_size].no;
 		}
@@ -487,8 +465,7 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 
 		//SBX
 		if (nextDouble() <= 1) {
-//			offspring.ind[i] = SBX(curent.ind[i1], curent.ind[i2]);
-			offspring.ind[i] = DE(curent.ind[i], curent.ind[i1], curent.ind[i2]);
+			offspring.ind[i] = SBX(curent.ind[i1], curent.ind[i2]);
 		}
 		else {
 			offspring.ind[i] = curent.ind[i1];
@@ -503,15 +480,7 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 				offspring.ind[i].var[j] = range[j][1];
 			}
 		}
-/*		for (int j = 0; j < dim; ++j) {
-			if (offspring.ind[i].var[j] < range[j][0]) {
-				offspring.ind[i].var[j] = range[j][0] + (range[j][1] - range[j][0])*nextDouble();
-			}
-			else if (offspring.ind[i].var[j] > range[j][1]) {
-				offspring.ind[i].var[j] = range[j][0] + (range[j][1] - range[j][0])*nextDouble();
-			}
-		}
-		*/
+
 
 		//polynomial mutation
 		offspring.ind[i] = PM(offspring.ind[i]);
@@ -526,22 +495,11 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 				offspring.ind[i].var[j] = range[j][1];
 			}
 		}
-/*		for (int j = 0; j < dim; ++j) {
-			if (offspring.ind[i].var[j] < range[j][0]) {
-				offspring.ind[i].var[j] = range[j][0] + (range[j][1] - range[j][0])*nextDouble();
-			}
-			else if (offspring.ind[i].var[j] > range[j][1]) {
-				offspring.ind[i].var[j] = range[j][0] + (range[j][1] - range[j][0])*nextDouble();
-			}
-		}*/
+
 
 		//evaluation and update
 		offspring.ind[i] = problems.evaluation(offspring.ind[i]);
 		total_constraints(offspring.ind[i]);
-
-		//update epsilonmax_
-		epsilonMax_ = max(epsilonMax_, offspring.ind[i].total_c);
-
 
 		//update ref and nadir
 		for (int j = 0; j < num_obj; ++j) {
@@ -553,17 +511,10 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 			}
 		}
 
-		//generate permutation of weight vector
-		vector<int> perm_update;
+
 		for (int j = 0; j < weight.update_size; ++j) {
-			perm_update.push_back(j);
-		}
-		random_shuffle(perm_update.begin(), perm_update.end());
-		int nr = 0;
-
-		for (int j = 0; j < perm_update.size(); ++j) {
-			int update_vec = weight.neighbor[i][perm_update[j]].no;
-
+			int update_vec = weight.neighbor[i][j].no;
+			if (update_vec == 51) count++;
 			//assign weight vector
 			curent.ind[update_vec].weight_no = update_vec;
 			offspring.ind[i].weight_no = update_vec;
@@ -572,32 +523,25 @@ void MOEAD_IEpsilon::evolution_one(int gen) {
 			curent.ind[update_vec].fitness = scalarizing_function(curent.ind[update_vec]);
 			offspring.ind[i].fitness = scalarizing_function(offspring.ind[i]);
 
-			//compare by Epsilon constrained handling
-			double totalc1 = curent.ind[update_vec].total_c, totalc2 = offspring.ind[i].total_c;
-			if (epsilon_ > totalc1) totalc1 = 0;
-			if (epsilon_ > totalc2) totalc2 = 0;
-
-			if (totalc1 == 0 && totalc2 == 0) {
-				if (curent.ind[update_vec].fitness > offspring.ind[i].fitness) curent.ind[update_vec] = offspring.ind[i], nr++;
+			//compare by CDP manner
+			if (curent.ind[update_vec].total_c == 0 && offspring.ind[i].total_c == 0) {
+				if (curent.ind[update_vec].fitness > offspring.ind[i].fitness) curent.ind[update_vec] = offspring.ind[i];
 			}
-			else if (totalc1 > totalc2) {
-				curent.ind[update_vec] = offspring.ind[i], nr++;
+			else if (curent.ind[update_vec].total_c > offspring.ind[i].total_c) {
+				curent.ind[update_vec] = offspring.ind[i];
 			}
-
-
-			if (nr == 2) break;
 		}
 
 
 	}//for (int ii = 0; ii < num_vec; ++ii)
 
 	//file output
-	problems.fileout(1, gen, rep, offspring);
+	file_allsolutions(rep + 1, gen, scalar, offspring);
 }
 
 
 //run
-void MOEAD_IEpsilon::run_algorithm(int reps) {
+void CTAEA::run_algorithm(int reps) {
 	rep = reps;
 	srand(reps);
 	init_genrand(reps);
@@ -617,24 +561,13 @@ void MOEAD_IEpsilon::run_algorithm(int reps) {
 	//inititalize population
 	initialize_population();
 
-	initial_epsilon();
-
-	//CDMP
-	for (int island = 0; island < 2; ++island) {
-		curent_fout(reps, 0, island);
-	}
 
 	//evolution
 	for (int j = 0; j < gen; ++j) {
-		G_++;
-		if (j%100==0) cout << "generation: " << j <<" "<<G_<< endl;
+		if (j%10==0) cout << "generation: " << j << endl;
 
 		//curent　population
 		evolution_one(j + 1);
-
-		update_epsilon();
-
-		problems.fileout(2, j + 1, rep, curent);
 	}
 
 
@@ -645,8 +578,9 @@ void MOEAD_IEpsilon::run_algorithm(int reps) {
 }
 
 
+
 //initialization files
-void MOEAD_IEpsilon::file_initialization(int  k, int gen) {
+void CTAEA::file_initialization(int  k, int gen) {
 	int count = 0;
 	int tmp_gen = 0;
 
@@ -656,26 +590,21 @@ void MOEAD_IEpsilon::file_initialization(int  k, int gen) {
 		string			name1 = to_string(k) + "_" + to_string(0) + "gen.dat";
 		ofstream fout("./" + to_string(ProblemSubID) + "/" + scalar + "/offsprings/" + name1);
 		fout << "#gen	Feasible	";
-		for (int i = 0; i < num_obj; ++i) {
-			fout << "f" << to_string(i + 1) << "	";
+		for (int i = 0; i < num_obj-1; ++i) {
+			fout << "f" << to_string(i+1) <<"	";
 		}
-		for (int i = 0; i < dim - 1; ++i) {
-			fout << "x" << to_string(i + 1) << "	";
-		}
-		fout << "x" << to_string(dim - 1) << endl;
+		fout << "f" << to_string(num_obj) << endl;
 
 
 		for (int i = 1; i <= tmp_gen; ++i) {
 			string name1 = to_string(k) + "_" + to_string(i) + "gen.dat";
 			ofstream fout("./" + to_string(ProblemSubID) + "/" + scalar + "/offsprings/" + name1);
 			fout << "#gen	Feasible	";
-			for (int i = 0; i < num_obj; ++i) {
+			for (int i = 0; i < num_obj-1; ++i) {
 				fout << "f" << to_string(i + 1) << "	";
 			}
-			for (int i = 0; i < dim - 1; ++i) {
-				fout << "x" << to_string(i + 1) << "	";
-			}
-			fout << "x" << to_string(dim - 1) << endl;
+			fout << "f" << to_string(num_obj) << endl;
+
 		}
 	}
 
@@ -700,11 +629,11 @@ void MOEAD_IEpsilon::file_initialization(int  k, int gen) {
 
 
 //file output offsprings
-void MOEAD_IEpsilon::file_allsolutions(int k, int gen, string scalar, population pop) {
+void CTAEA::file_allsolutions(int k, int gen, string scalar, population pop) {
 	{
 		string name1 = to_string(k) + "_" + to_string(gen) + "gen.dat";
 		ofstream fout("./" + to_string(ProblemSubID) + "/" + scalar + "/offsprings/" + name1, ios::out | ios::app);
-		for (int k = 0; k < pop_m; ++k) {
+		for (int k = 0; k < num_vec; ++k) {
 			//gen 
 			fout << gen << "\t";
 
@@ -717,20 +646,17 @@ void MOEAD_IEpsilon::file_allsolutions(int k, int gen, string scalar, population
 			}
 
 			//function value
-			for (int i = 0; i < num_obj; ++i) {
+			for (int i = 0; i < num_obj-1; ++i) {
 				fout << max(pop.ind[k].cost[i], -1 * pop.ind[k].cost[i]) << "\t";
 			}
-			for (int i = 0; i < dim - 1; ++i) {
-				fout << pop.ind[k].var[i] << "\t";
-			}
-			fout << pop.ind[k].var[dim - 1] << endl;
+			fout << max(pop.ind[k].cost[num_obj - 1], -1 * pop.ind[k].cost[num_obj - 1]) << endl;
 		}
-
+		
 	}
 }
 
 
-int MOEAD_IEpsilon::calc_cossim(individual offspring1) {
+int CTAEA::calc_cossim(individual offspring1) {
 	double a, b, ab;
 	double min_cos = 0;
 	int min_vec = 0;
@@ -757,7 +683,7 @@ int MOEAD_IEpsilon::calc_cossim(individual offspring1) {
 };
 
 
-individual MOEAD_IEpsilon::SBX(individual ind1, individual ind2) {
+individual CTAEA::SBX(individual ind1, individual ind2) {
 	individual offspring1, offspring2;
 	double mu = 20.0;//distribution index
 	double SBX_u = 0;
@@ -849,26 +775,10 @@ individual MOEAD_IEpsilon::SBX(individual ind1, individual ind2) {
 }
 
 
-individual MOEAD_IEpsilon::DE(individual ind1, individual ind2, individual ind3) {
-	individual offspring1;
-	double F = 0.5;//distribution index
-	double CR = 1.0;
-	int jrand = genrand_int32() % dim;
-
-	offspring1 = ind1;
-	for (int j = 0; j < dim; ++j) {
-		if (nextDouble() < CR||j==jrand) offspring1.var[j] = ind1.var[j] + F*(ind2.var[j] - ind3.var[j]);
-	}
-
-	return offspring1;
-}
-
-
-individual MOEAD_IEpsilon::PM(individual ind) {
+individual CTAEA::PM(individual ind) {
 	double mum = 20.0;//index of polynomial mutation
 	double del = 0;
 	double p = 0;
-
 
 	p = nextDouble();
 	if (p < 0.5) {
@@ -884,134 +794,4 @@ individual MOEAD_IEpsilon::PM(individual ind) {
 	}
 
 	return ind;
-}
-
-
-individual MOEAD_IEpsilon::PM2(individual ind) {
-	double mum = 20.0;//index of polynomial mutation
-	double del = 0;
-	double p = 0;
-
-	for (int j = 0; j < dim; ++j) {
-		if (nextDouble() <= mutation_probability) {
-			double delta1 = (ind.var[j] - range[j][0]) / (range[j][1] - range[j][0]);
-			double delta2 = (range[j][1] - ind.var[j]) / (range[j][1] - range[j][0]);
-			p = nextDouble();
-			double xy = 0;
-			double mut_pow = 1.0 / (mum + 1.0);
-			double val = 0;
-
-			if (p <= 0.5) {
-				xy = 1.0 - delta1;
-				val = 2.0*p + (1.0 - 2.0*p)*(pow(xy, (mum + 1.0)));
-				del = pow(val, mut_pow) - 1.0;
-			}
-			else {
-				xy = 1.0 - delta2;
-				val = 2.0*(1.0 - p) + 2.0*(p - 0.5)*(pow(xy, (mum + 1.0)));
-				del = 1.0 - (pow(val, mut_pow));
-			}
-
-			ind.var[j] += del*(range[j][1] - range[j][0]);
-		}
-	}
-
-	return ind;
-}
-
-
-//initial epsilon
-void MOEAD_IEpsilon::initial_epsilon() {
-	int ni = 0;
-
-	for (int i = 0; i < pop_m; ++i) {
-		if (curent.ind[i].total_c > 0) {
-			ni++;
-		}
-	}
-
-	int n = pop_m - ceil(ni*theta_);
-	if (ceil(ni*theta_) == 0) {
-		n = pop_m - 1;
-	}
-
-	double overall = 0;
-	vector<double> c;
-	for (int i = 0; i < pop_m; ++i) {
-		c.push_back(curent.ind[i].total_c);
-	}
-	sort(c.begin(), c.end());
-
-	overall = c[n];
-
-	if (overall == 0) {
-		epsilon0_ = INT_MAX;
-	}
-	else {
-		epsilon0_ = overall;
-	}
-
-	epsilon0_ = overall;
-	epsilon_ = epsilon0_;
-
-}
-
-//update epsilon
-void MOEAD_IEpsilon::update_epsilon() {
-	double rf = 0;
-	double cmax = 0;
-
-	for (int i = 0; i < pop_m; ++i) {
-		if (curent.ind[i].total_c == 0) {
-			rf += 1.0;
-		}
-
-		if (curent.ind[i].total_c > cmax) {
-			cmax = curent.ind[i].total_c;
-		}
-	}
-	rf = rf / (double)pop_m;
-
-	if (epsilon_ == INT_MAX) {
-		epsilon_ = cmax;
-	}
-
-
-	if (rf < alpha_ && G_ < Tc_) {
-		double f = (double)G_ / (double)Tc_;
-		epsilon_ = epsilon_*(1.0 - tau_);
-	}
-	else if (rf >= alpha_&&G_ < Tc_) {
-		epsilon_ = (1.0 + tau_)*epsilonMax_;
-	}
-	else if (G_ >= Tc_) {
-		epsilon_ = 0;
-	}
-}
-
-
-void MOEAD_IEpsilon::curent_fout(int k, int j, int island) {
-	string name1 = to_string(k) + "_" + to_string(j) + "gen.dat";
-	ofstream fout("./" + to_string(ProblemSubID) + "/" + scalar + "/island" + to_string(island + 1) + "/curents/" + name1);
-
-	if (island == 0) {
-		for (int i = 0; i < pop_m; ++i) {
-			if (curent.ind[i].total_c == 0) {
-				for (int k = 0; k < dim - 1; ++k) {
-					fout << curent.ind[i].var[k] << "\t";
-				}
-				fout << setprecision(7) << curent.ind[i].var[dim - 1] << endl;
-			}
-		}
-	}
-	else if (island > 0) {
-		for (int i = 0; i < pop_m; ++i) {
-			if (curent.ind[i].total_c != 0) {
-				for (int k = 0; k < dim - 1; ++k) {
-					fout << curent.ind[i].var[k] << "\t";
-				}
-				fout << setprecision(7) << curent.ind[i].var[dim - 1] << endl;
-			}
-		}
-	}
 }

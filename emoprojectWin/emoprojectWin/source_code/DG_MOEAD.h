@@ -1,5 +1,5 @@
-#ifndef _MOEAD_IEpsilon_
-#define _MOEAD_IEpsilon_
+#ifndef _DG_MOEAD_
+#define _DG_MOEAD_
 #include<fstream>
 #include"population.h"
 #include"MT.h"
@@ -7,9 +7,10 @@
 #include"Problems.h"
 
 
-class MOEAD_IEpsilon {
+class DG_MOEAD {
 private:
 	int pop_m;//population size
+	int pop_c;//number of offsprings
 	int gen;//generation count
 	int num_obj;//number of objects
 	int num_const;//number of constraints
@@ -21,43 +22,35 @@ private:
 	vector<double> reference_point;//éQè∆ì_
 	vector<double> nadir_point;//ç≈à´ì_
 
-	population curent;
-	population offspring;
-
-	//IEpsilon parameter
-	double epsilon_;
-	double epsilon0_;
-	double epsilonMax_;
-
-	int G_;
-	int Tc_;
-	double cp_;
-	double theta_;
-	double alpha_;
-	double tau_;
-
+	vector<population> curent;
+	vector<population> offspring;
+	population temp_curent;
+	population temp_offspring;
 
 	weight_vec weight;
 	int H1, H2;
 	int num_vec;
 	vector<vector<double>> range;
 	Problems problems;
-	int ProblemID;
 	int ProblemSubID;
 
 public:
 
 	//constractor
-	MOEAD_IEpsilon(int tmp_rep, int tmp_ProblemID, int tmp_ProblemSubID) {
-		Parameter_setting("MOEAD_IEpsilon", tmp_ProblemID, tmp_ProblemSubID);
+	DG_MOEAD(int tmp_rep, int ProblemID, int tmp_ProblemSubID) {
+		Parameter_setting("CM2B_MOEAD", ProblemID, tmp_ProblemSubID);
 		rep = tmp_rep;
-		ProblemID = tmp_ProblemID;
 		ProblemSubID = tmp_ProblemSubID;
 
-
 		//set populations
-		curent.initialize(pop_m, num_obj, dim, num_const);
-		offspring.initialize(pop_m, num_obj, dim, num_const);
+		curent.resize(num_vec);
+		offspring.resize(num_vec);
+		for (int i = 0; i < num_vec; ++i) {
+			curent[i].initialize(pop_m, num_obj, dim, num_const);
+			offspring[i].initialize(pop_c, num_obj, dim, num_const);
+		}
+		temp_curent.initialize(num_vec*pop_m, num_obj, dim, num_const);
+		temp_offspring.initialize(num_vec*pop_c, num_obj, dim, num_const);
 	};
 
 
@@ -114,34 +107,36 @@ public:
 	void file_initialization(int k, int gen);//file initialization
 
 
-	void file_allsolutions(int k, int gen, string scalar, population pop);//file allsolutions
+	void file_allsolutions(int k, int gen, string scalar, vector<population> pop, vector<double> rf);//file allsolutions
+
+
+	void file_curents(int k, int gen, string scalar, int island);//file curents
 
 
 	int calc_cossim(individual offspring1);
 
 
-	individual SBX(individual ind1, individual ind2);
+	individual SBX(int vec1, int vec2, int n1, int n2);
 
 
-	individual DE(individual ind1, individual ind2, individual ind3);
+	individual DE(int vec, int curent_gen);
 
 
-	individual PM(individual ind1);
+	void PM(int vec, int pp);
 
 
-	individual PM2(individual ind1);
+	void select_next_ind(vector<individual> update_population, int vec);
 
 
-	void initial_epsilon();
+	int get_minID(population pop);
 
 
-	void update_epsilon();
+	int DR2(individual a, individual b);
 
 
-	void curent_fout(int, int, int);//output objectives
 };
 
 
 
 
-#endif _MOEAD_IEpsilon_// !_MOEAD_
+#endif _DG_MOEAD_// !_MOEAD_

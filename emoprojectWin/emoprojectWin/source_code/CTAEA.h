@@ -1,5 +1,5 @@
-#ifndef _MOEAD_IEpsilon_
-#define _MOEAD_IEpsilon_
+#ifndef _CTAEA_
+#define _CTAEA_
 #include<fstream>
 #include"population.h"
 #include"MT.h"
@@ -7,7 +7,7 @@
 #include"Problems.h"
 
 
-class MOEAD_IEpsilon {
+class CTAEA {
 private:
 	int pop_m;//population size
 	int gen;//generation count
@@ -24,34 +24,19 @@ private:
 	population curent;
 	population offspring;
 
-	//IEpsilon parameter
-	double epsilon_;
-	double epsilon0_;
-	double epsilonMax_;
-
-	int G_;
-	int Tc_;
-	double cp_;
-	double theta_;
-	double alpha_;
-	double tau_;
-
-
 	weight_vec weight;
 	int H1, H2;
 	int num_vec;
 	vector<vector<double>> range;
 	Problems problems;
-	int ProblemID;
 	int ProblemSubID;
 
 public:
 
 	//constractor
-	MOEAD_IEpsilon(int tmp_rep, int tmp_ProblemID, int tmp_ProblemSubID) {
-		Parameter_setting("MOEAD_IEpsilon", tmp_ProblemID, tmp_ProblemSubID);
+	CTAEA(int tmp_rep, int ProblemID, int tmp_ProblemSubID) {
+		Parameter_setting("CTAEA", ProblemID, tmp_ProblemSubID);
 		rep = tmp_rep;
-		ProblemID = tmp_ProblemID;
 		ProblemSubID = tmp_ProblemSubID;
 
 
@@ -123,25 +108,10 @@ public:
 	individual SBX(individual ind1, individual ind2);
 
 
-	individual DE(individual ind1, individual ind2, individual ind3);
-
-
 	individual PM(individual ind1);
-
-
-	individual PM2(individual ind1);
-
-
-	void initial_epsilon();
-
-
-	void update_epsilon();
-
-
-	void curent_fout(int, int, int);//output objectives
 };
 
 
 
 
-#endif _MOEAD_IEpsilon_// !_MOEAD_
+#endif _CTAEA_// !_MOEAD_
