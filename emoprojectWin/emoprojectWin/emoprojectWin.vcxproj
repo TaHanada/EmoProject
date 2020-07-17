@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{98A7E8CC-4BD8-471A-8412-25F37919354D}</ProjectGuid>
+    <RootNamespace>emoprojectWin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="source_code\carsideimpact.h" />
+    <ClInclude Include="source_code\CDMP.h" />
+    <ClInclude Include="source_code\cec09.h" />
+    <ClInclude Include="source_code\CM2B_MOEAD.h" />
+    <ClInclude Include="source_code\CM2B_MOEAD2.h" />
+    <ClInclude Include="source_code\CM2B_MOEAD3.h" />
+    <ClInclude Include="source_code\competition.h" />
+    <ClInclude Include="source_code\discbrakedesign.h" />
+    <ClInclude Include="source_code\divide.h" />
+    <ClInclude Include="source_code\DNEA_CDP.h" />
+    <ClInclude Include="source_code\DOC.h" />
+    <ClInclude Include="source_code\g01_SUV_FrFL.h" />
+    <ClInclude Include="source_code\g02_SUV_ODB.h" />
+    <ClInclude Include="source_code\g03_SUV_ODB.h" />
+    <ClInclude Include="source_code\g04_SUV_ODB.h" />
+    <ClInclude Include="source_code\g05_SUV_SIDE.h" />
+    <ClInclude Include="source_code\g06_SUV_SIDE.h" />
+    <ClInclude Include="source_code\g07_SUV_SIDE.h" />
+    <ClInclude Include="source_code\g08_SUV_REAR.h" />
+    <ClInclude Include="source_code\g09_SUV_REAR.h" />
+    <ClInclude Include="source_code\g10_SUV_LEV.h" />
+    <ClInclude Include="source_code\g11_SUV_LEV.h" />
+    <ClInclude Include="source_code\g12_SUV_LEV.h" />
+    <ClInclude Include="source_code\g13_SUV_BS.h" />
+    <ClInclude Include="source_code\g14_SUV_BS.h" />
+    <ClInclude Include="source_code\g19_CDW_FrFL.h" />
+    <ClInclude Include="source_code\g20_CDW_ODB.h" />
+    <ClInclude Include="source_code\g21_CDW_ODB.h" />
+    <ClInclude Include="source_code\g22_CDW_ODB.h" />
+    <ClInclude Include="source_code\g23_CDW_SIDE.h" />
+    <ClInclude Include="source_code\g24_CDW_SIDE.h" />
+    <ClInclude Include="source_code\g25_CDW_SIDE.h" />
+    <ClInclude Include="source_code\g26_CDW_REAR.h" />
+    <ClInclude Include="source_code\g27_CDW_REAR.h" />
+    <ClInclude Include="source_code\g28_CDW_LEV.h" />
+    <ClInclude Include="source_code\g29_CDW_LEV.h" />
+    <ClInclude Include="source_code\g30_CDW_LEV.h" />
+    <ClInclude Include="source_code\g31_CDW_BS.h" />
+    <ClInclude Include="source_code\g32_CDW_BS.h" />
+    <ClInclude Include="source_code\g37_C5H_FrFL.h" />
+    <ClInclude Include="source_code\g38_C5H_ODB.h" />
+    <ClInclude Include="source_code\g39_C5H_ODB.h" />
+    <ClInclude Include="source_code\g40_C5H_ODB.h" />
+    <ClInclude Include="source_code\g41_C5H_SIDE.h" />
+    <ClInclude Include="source_code\g42_C5H_SIDE.h" />
+    <ClInclude Include="source_code\g43_C5H_SIDE.h" />
+    <ClInclude Include="source_code\g44_C5H_REAR.h" />
+    <ClInclude Include="source_code\g45_C5H_REAR.h" />
+    <ClInclude Include="source_code\g46_C5H_LEV.h" />
+    <ClInclude Include="source_code\g47_C5H_LEV.h" />
+    <ClInclude Include="source_code\g48_C5H_LEV.h" />
+    <ClInclude Include="source_code\g49_C5H_BS.h" />
+    <ClInclude Include="source_code\g50_C5H_BS.h" />
+    <ClInclude Include="source_code\individual.h" />
+    <ClInclude Include="source_code\m01_SUV_Mass.h" />
+    <ClInclude Include="source_code\m02_CDW_Mass.h" />
+    <ClInclude Include="source_code\m03_C5H_Mass.h" />
+    <ClInclude Include="source_code\mazda_mop.h" />
+    <ClInclude Include="source_code\MOEAD_ACDP.h" />
+    <ClInclude Include="source_code\MOEAD_CDP.h" />
+    <ClInclude Include="source_code\MOEAD_IEpsilon.h" />
+    <ClInclude Include="source_code\MT.h" />
+    <ClInclude Include="source_code\NSGAII_CDP.h" />
+    <ClInclude Include="source_code\NSGAII_IEpsilon.h" />
+    <ClInclude Include="source_code\NSGAII_SP.h" />
+    <ClInclude Include="source_code\Parameter.h" />
+    <ClInclude Include="source_code\population.h" />
+    <ClInclude Include="source_code\Problems.h" />
+    <ClInclude Include="source_code\speedreducerdesign.h" />
+    <ClInclude Include="source_code\twobartrussdesign.h" />
+    <ClInclude Include="source_code\water.h" />
+    <ClInclude Include="source_code\weight_vec.h" />
+    <ClInclude Include="source_code\WeldedBeam.h" />
+    <ClInclude Include="source_code\weldedbeam2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source_code\carsideimpact.cpp" />
+    <ClCompile Include="source_code\CDMP.cpp" />
+    <ClCompile Include="source_code\cec09.cpp" />
+    <ClCompile Include="source_code\CM2B_MOEAD.cpp" />
+    <ClCompile Include="source_code\CM2B_MOEAD2.cpp" />
+    <ClCompile Include="source_code\CM2B_MOEAD3.cpp" />
+    <ClCompile Include="source_code\competition.cpp" />
+    <ClCompile Include="source_code\discbrakedesign.cpp" />
+    <ClCompile Include="source_code\divide.cpp" />
+    <ClCompile Include="source_code\DNEA_CDP.cpp" />
+    <ClCompile Include="source_code\DOC.cpp" />
+    <ClCompile Include="source_code\g01_SUV_FrFL.cpp" />
+    <ClCompile Include="source_code\g02_SUV_ODB.cpp" />
+    <ClCompile Include="source_code\g03_SUV_ODB.cpp" />
+    <ClCompile Include="source_code\g04_SUV_ODB.cpp" />
+    <ClCompile Include="source_code\g05_SUV_SIDE.cpp" />
+    <ClCompile Include="source_code\g06_SUV_SIDE.cpp" />
+    <ClCompile Include="source_code\g07_SUV_SIDE.cpp" />
+    <ClCompile Include="source_code\g08_SUV_REAR.cpp" />
+    <ClCompile Include="source_code\g09_SUV_REAR.cpp" />
+    <ClCompile Include="source_code\g10_SUV_LEV.cpp" />
+    <ClCompile Include="source_code\g11_SUV_LEV.cpp" />
+    <ClCompile Include="source_code\g12_SUV_LEV.cpp" />
+    <ClCompile Include="source_code\g13_SUV_BS.cpp" />
+    <ClCompile Include="source_code\g14_SUV_BS.cpp" />
+    <ClCompile Include="source_code\g19_CDW_FrFL.cpp" />
+    <ClCompile Include="source_code\g20_CDW_ODB.cpp" />
+    <ClCompile Include="source_code\g21_CDW_ODB.cpp" />
+    <ClCompile Include="source_code\g22_CDW_ODB.cpp" />
+    <ClCompile Include="source_code\g23_CDW_SIDE.cpp" />
+    <ClCompile Include="source_code\g24_CDW_SIDE.cpp" />
+    <ClCompile Include="source_code\g25_CDW_SIDE.cpp" />
+    <ClCompile Include="source_code\g26_CDW_REAR.cpp" />
+    <ClCompile Include="source_code\g27_CDW_REAR.cpp" />
+    <ClCompile Include="source_code\g28_CDW_LEV.cpp" />
+    <ClCompile Include="source_code\g29_CDW_LEV.cpp" />
+    <ClCompile Include="source_code\g30_CDW_LEV.cpp" />
+    <ClCompile Include="source_code\g31_CDW_BS.cpp" />
+    <ClCompile Include="source_code\g32_CDW_BS.cpp" />
+    <ClCompile Include="source_code\g37_C5H_FrFL.cpp" />
+    <ClCompile Include="source_code\g38_C5H_ODB.cpp" />
+    <ClCompile Include="source_code\g39_C5H_ODB.cpp" />
+    <ClCompile Include="source_code\g40_C5H_ODB.cpp" />
+    <ClCompile Include="source_code\g41_C5H_SIDE.cpp" />
+    <ClCompile Include="source_code\g42_C5H_SIDE.cpp" />
+    <ClCompile Include="source_code\g43_C5H_SIDE.cpp" />
+    <ClCompile Include="source_code\g44_C5H_REAR.cpp" />
+    <ClCompile Include="source_code\g45_C5H_REAR.cpp" />
+    <ClCompile Include="source_code\g46_C5H_LEV.cpp" />
+    <ClCompile Include="source_code\g47_C5H_LEV.cpp" />
+    <ClCompile Include="source_code\g48_C5H_LEV.cpp" />
+    <ClCompile Include="source_code\g49_C5H_BS.cpp" />
+    <ClCompile Include="source_code\g50_C5H_BS.cpp" />
+    <ClCompile Include="source_code\m01_SUV_Mass.cpp" />
+    <ClCompile Include="source_code\m02_CDW_Mass.cpp" />
+    <ClCompile Include="source_code\m03_C5H_Mass.cpp" />
+    <ClCompile Include="source_code\main.cpp" />
+    <ClCompile Include="source_code\mazda_mop.cpp" />
+    <ClCompile Include="source_code\MOEAD_ACDP.cpp" />
+    <ClCompile Include="source_code\MOEAD_CDP.cpp" />
+    <ClCompile Include="source_code\MOEAD_IEpsilon.cpp" />
+    <ClCompile Include="source_code\MT.cpp" />
+    <ClCompile Include="source_code\NSGAII_CDP.cpp" />
+    <ClCompile Include="source_code\NSGAII_IEpsilon.cpp" />
+    <ClCompile Include="source_code\NSGAII_SP.cpp" />
+    <ClCompile Include="source_code\population.cpp" />
+    <ClCompile Include="source_code\speedreducerdesign.cpp" />
+    <ClCompile Include="source_code\twobartrussdesign.cpp" />
+    <ClCompile Include="source_code\water.cpp" />
+    <ClCompile Include="source_code\weight_vec.cpp" />
+    <ClCompile Include="source_code\WeldedBeam.cpp" />
+    <ClCompile Include="source_code\weldedbeam2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="source_code\count_constraints.txt" />
+    <Text Include="source_code\decisionspace.txt" />
+    <Text Include="source_code\feasible_value.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

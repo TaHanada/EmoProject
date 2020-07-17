@@ -1,0 +1,25 @@
+﻿  DNEA_CDP.cpp
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(627,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(638,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(639,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(648,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(655,25): warning C4244: '引数': 'double' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(773,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(779,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(816,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(818,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(849,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(851,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\DNEA_CDP.cpp(863,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  NSGAII_CDP.cpp
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(627,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(638,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(639,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(648,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(655,25): warning C4244: '引数': 'double' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(764,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(772,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(782,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\emoprojectWin\source_code\NSGAII_CDP.cpp(799,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  コードを生成中...
+  emoprojectWin.vcxproj -> C:\Users\hanada\Documents\CM2Bコード\emoprojectWin\Debug\emoprojectWin.exe
