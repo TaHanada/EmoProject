@@ -16,6 +16,10 @@ currents→環境選択後の個体群(非劣解ではない)
 data→最終世代の個体群
 offspring→その世代における子個体
 
+問題・アルゴリズムの追加のやり方
+main.cpp
+Problems.h
+を参照
 
 ・実装されている問題
 MAZDA(実問題)
@@ -27,9 +31,13 @@ Carsideimpact(RWLP)
 Water(RWLP)
 CDMP
 DOC
-CTP
+CTP=cec09(Problemsにはもうある. subIDは1~9. これCFか，10がないな)
 competition(風車)
 
+追加しとく！
+CWFG(subIDは1しかない)
+CDTLZ(subIDは1~6)
+LIR_CMOP(subIDは1~14)
 
 ・実装されているアルゴリズム
 NSGA2-CDP
@@ -41,3 +49,7 @@ DNEA-CDP
 CM2B-MOEAD(深瀬さんのやつ)
 CM2B-MOEAD2(藤井君改良中)(制約を正規化して制約違反量の総和における各制約のスケールの問題をなくす)
 CM2B-MOEAD3(自分用)(AdaWを適用して重みベクトルを動的に→断念)
+
+追加しとく！
+DG_MOEAD
+CTAEA
