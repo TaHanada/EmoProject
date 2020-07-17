@@ -38,7 +38,7 @@ individual CARSIDE::problems(int swit, individual ind) {
 
 }
 
-//制約値は，負のときに制約違反しているとみなす．(>=0の形にせねば)
+// object function ans constrains
 individual CARSIDE::carsideproblem(individual ind) {
 	vector<long double> x = ind.var;
 	vector<long double> f = ind.cost;
